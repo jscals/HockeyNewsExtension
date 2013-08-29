@@ -1,0 +1,43 @@
+html{
+    width: 580px;
+    background-color: #b70805;/* #e7e7e7;*/
+}
+body {
+    border: 4px solid black;
+   
+}
+#banner{
+     background-image: url('../images/headerBackground.jpg');
+     height: 110px;
+     border-bottom: 2px solid #b70805;
+     /*width set when page loads, matches storyContainer*/
+}
+#storyContainer{
+    padding-left: 6px;
+    padding-top: 8px;
+     background-image: url('../images/storyBackground.jpg');
+}
+.story {
+    /*margin: 10px;*/
+    text-align: left;
+    height: 100px;
+}
+.picture {
+    margin-right: 10px;
+    float: left;
+    border: 2px solid black;
+    vertical-align: middle;
+    width: 109px;
+    height: 75px;
+
+}
+.dateAndTitle{
+    padding-top: 2px;
+}
+
+.date{
+
+}
+.title{
+
+}
