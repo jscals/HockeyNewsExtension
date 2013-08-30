@@ -1,3 +1,7 @@
+/*
+    Author: Jonathan Scalise
+    Disclaimer: TSN images, name, and stories are property of Bell Media.
+*/
 
 /**
  * URL to get TSN RSS Feed

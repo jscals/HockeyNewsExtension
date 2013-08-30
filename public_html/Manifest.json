@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Latest TSN Hockey Headlines",
-  "description": "Grabs the latest NHL headlines from TSN and displays them, along with a picture and the published date/time, in a handy drop-down display. Once a headline is clicked, a new window opens the selected story.",
+  "name": "Latest Hockey Headlines",
+  "description": "Grabs the latest NHL headlines from TSN and displays them in a handy drop-down list. Click a headline to open full story.",
   "version": "1.0",
 
   "permissions": [
@@ -10,7 +10,7 @@
   ],
           
   "browser_action": {
-    "default_icon": "images/icon.png",
+    "default_icon": "icon.png",
     "default_popup": "main.html"
   }
   
