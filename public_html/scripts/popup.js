@@ -56,8 +56,15 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
               filteredStories.appendChild(currentStory);   
           }
       }
-        
-      showFeed(filteredStories.childNodes);
+      
+      //Check to see if there are any stories to display
+      if(filteredStories.childNodes.length > 0){
+          showFeed(filteredStories.childNodes);
+      }
+      else{
+          nothingToShow();
+      }
+      
   };
 
 
@@ -138,6 +145,22 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
       
       body.appendChild(storyContainer);
   };//end showFeed
+  
+  
+  /*
+   * Appends a message to the main story container when no stories exist
+   * (for the chosen category so far for the day).
+   */
+  function nothingToShow(){
+      var storyContainer = $("#storyContainer");
+      storyContainer.css("text-align","center");
+      
+      var message = document.createElement("p");
+      message.innerHTML = "No headlines yet for today, check back again later!";
+      message.setAttribute("id","noStoryMessage");
+      
+      storyContainer.append(message);
+  };
 
       
 //Initate ajax when loaded.
