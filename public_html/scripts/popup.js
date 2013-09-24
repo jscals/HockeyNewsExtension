@@ -20,7 +20,6 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
       var req = new XMLHttpRequest();
       req.open("GET", this.rssAddress_, true);
       req.send(null);
-      var page = this; //need for onReadyStateChange
       req.onreadystatechange = function () {
           if (req.readyState === 4) {
               filterFeedByCategory(req.responseText, "NHL");
@@ -50,7 +49,7 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
       //filter the stories
       for(var i = 0; i< allStories.length; i++){
           var currentStory = $(allStories).get(i);
-          var storyCategory = currentStory.getElementsByTagName("category")[0].childNodes[0].nodeValue;
+          var storyCategory = $(currentStory).find("category").text();
           
           if(storyCategory === category){
               filteredStories.appendChild(currentStory);   
@@ -75,16 +74,16 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
    */
   var showFeed = function (filteredStories) {
 
-      var body = document.body;
-      var storyContainer = document.getElementById("storyContainer");
-
       for(var i = 0; i< filteredStories.length; i++){
-
+       
+          var currStory = $(filteredStories).get(i);
+          
           //get the relevant information from each story element in the nodeList
-          var storyTitle = filteredStories.item(i).getElementsByTagName("title")[0].childNodes[0].nodeValue;
-          var storyUrl =filteredStories.item(i).getElementsByTagName("link")[0].childNodes[0].nodeValue;
-          var storyImgUrl = filteredStories.item(i).getElementsByTagName("enclosure")[0].getAttribute("url");
-          var scannedDate = filteredStories.item(i).getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
+          var storyTitle = $(currStory).find("title").text();
+          var storyUrl = $(currStory).find("link").text();
+          var scannedDate = $(currStory).find("pubDate").text();
+          var storyImgUrl = $(currStory).find("enclosure").attr("url");
+          
           //Create new date object to localize the time zone for the user. 
           var storyDate = new Date(scannedDate);
           
@@ -103,7 +102,7 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
           }
 
           //format date string
-          storyDate = storyDate.getDate() + "/" + storyDate.getMonth() + "/" + storyDate.getFullYear() + " " + 
+          storyDate = storyDate.getDate() + "/" + (storyDate.getMonth() + 1) + "/" + storyDate.getFullYear() + " " + 
                       hour + ":" + minutes + prefix;
 
 
@@ -140,10 +139,13 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
           storyDiv.appendChild(document.createElement("br"));
           
           //append formatted story.
-          storyContainer.appendChild(storyDiv);
-      }//end for
+          $("#storyContainer").append(storyDiv);
+          
+      }
       
-      body.appendChild(storyContainer);
+      //append all stories to body
+      $("#body").append(storyContainer);
+      
   };//end showFeed
   
   
@@ -163,7 +165,7 @@ var rssAddress_ = 'http://www.tsn.ca/datafiles/rss/Stories.xml';
   };
 
       
-//Initate ajax when loaded.
+//Initate ajax when loaded and make header as wide as story container. 
 $(document).ready( function() {
            $("#header").width($("storyContainer").width());
           getRSSFeed(); 
